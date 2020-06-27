@@ -22,3 +22,21 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* Tittle and button */
+.div-margin {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.div-search {
+    border: 1px solid #000;
+    display: inline-block;
+    margin-right: 20px
+}
+
+.input-search {
+    background-color: transparent;
+    border: none;
+    outline: none
+}

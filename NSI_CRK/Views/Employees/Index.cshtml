@@ -4,11 +4,17 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="div-margin">
+    <h2 style="display:inline">Employees</h2>
+    <div style="float:right">
+        <div class="div-search">
+            <input type="search" class="input-search" placeholder="Search..." />
+            <button class="btn btn-outline-secondary" type="button" style="outline:none"><span class="glyphicon glyphicon-search"></span></button>
+        </div>
+        <input style="width:100px;height:36px" type="button" value="Create New" onclick="location.href='@Url.Action("Create")'" />
+    </div>    
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -22,22 +28,7 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TelephoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateOfEmployment)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateOfContractExpiration)
-        </th>
+        </th> 
         <th>
             @Html.DisplayNameFor(model => model.Position)
         </th>
@@ -62,27 +53,12 @@
             @Html.DisplayFor(modelItem => item.City)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TelephoneNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateOfBirth)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateOfEmployment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateOfContractExpiration)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Position)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Salary)
         </td>
-        <td>
+        <td style="text-align:end">
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })
