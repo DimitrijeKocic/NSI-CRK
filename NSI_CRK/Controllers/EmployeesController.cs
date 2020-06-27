@@ -16,9 +16,20 @@ namespace NSI_CRK.Controllers
         private CRKContext db = new CRKContext();
 
         // GET: Employees
-        public ActionResult Index()
+        public ActionResult Index(string SearchName = null)
         {
-            return View(db.Employees.ToList());
+            var empoyee = db.Employees.AsQueryable();
+            if (!String.IsNullOrEmpty(SearchName))
+            {
+                var toUpper = SearchName.ToUpper();
+                empoyee = db.Employees.Where(s => s.FirstName.Contains(toUpper) ||
+                                             s.LastName.Contains(toUpper) ||
+                                             s.Email.Contains(toUpper) ||
+                                             s.City.Contains(toUpper) ||
+                                             s.Salary.ToString().Contains(toUpper) ||
+                                             s.Position.ToString().Contains(toUpper));
+            }
+            return View(empoyee.ToList());
         }
 
         // GET: Employees/Details/5
