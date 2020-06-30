@@ -1,8 +1,7 @@
 ﻿namespace NSI_CRK.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class CreateTables : DbMigration
     {
         public override void Up()

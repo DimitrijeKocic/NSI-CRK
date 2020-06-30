@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using NSI_CRK.DAL;
 using NSI_CRK.Models;
@@ -13,12 +9,27 @@ namespace NSI_CRK.Controllers
 {
     public class AbsencesController : Controller
     {
-        private CRKContext db = new CRKContext();
+        private IGenericRepository<Absence> repository = null;
+        private IAbsencesRepository absences_repository = null;
+
+        public AbsencesController()
+        {
+            this.repository = new GenericRepository<Absence>();
+            this.absences_repository = new AbsencesRepository();
+        }
+        public AbsencesController(IGenericRepository<Absence> repository)
+        {
+            this.repository = repository;
+        }
+        public AbsencesController(AbsencesRepository repository)
+        {
+            this.absences_repository = repository;
+        }
 
         // GET: Absences
-        public ActionResult Index()
+        public ActionResult Index(string SearchString = null)
         {
-            return View(db.Absences.ToList());
+            return View(absences_repository.GetFilteredAbsences(SearchString).ToList());
         }
 
         // GET: Absences/Details/5
@@ -28,7 +39,7 @@ namespace NSI_CRK.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Absence absence = db.Absences.Find(id);
+            Absence absence = repository.GetById(id);
             if (absence == null)
             {
                 return HttpNotFound();
@@ -51,8 +62,8 @@ namespace NSI_CRK.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Absences.Add(absence);
-                db.SaveChanges();
+                repository.Insert(absence);
+                repository.Save();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +77,7 @@ namespace NSI_CRK.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Absence absence = db.Absences.Find(id);
+            Absence absence = repository.GetById(id);
             if (absence == null)
             {
                 return HttpNotFound();
@@ -83,8 +94,8 @@ namespace NSI_CRK.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(absence).State = EntityState.Modified;
-                db.SaveChanges();
+                repository.Update(absence);
+                repository.Save();
                 return RedirectToAction("Index");
             }
             return View(absence);
@@ -97,7 +108,7 @@ namespace NSI_CRK.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Absence absence = db.Absences.Find(id);
+            Absence absence = repository.GetById(id);
             if (absence == null)
             {
                 return HttpNotFound();
@@ -110,18 +121,14 @@ namespace NSI_CRK.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Absence absence = db.Absences.Find(id);
-            db.Absences.Remove(absence);
-            db.SaveChanges();
+            repository.Delete(id);
+            repository.Save();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
+            repository.Dispose();
             base.Dispose(disposing);
         }
     }

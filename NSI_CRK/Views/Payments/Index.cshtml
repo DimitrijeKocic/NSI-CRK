@@ -4,16 +4,16 @@
     ViewBag.Title = "Index";
 }
 
-    <div class="div-margin">
-        <h2 style="display:inline">Payments</h2>
-        <div style="float:right">
-            <form class="div-search">
-                <input type="search" class="input-search" name="SearchName" placeholder="Search..." />
-                <button class="btn btn-outline-secondary" style="outline:none" type="button"><span class="glyphicon glyphicon-search"></span></button>
-            </form>
-            <input style="width:100px;height:36px" type="button" value="Create New" onclick="location.href='@Url.Action("Create")'" />
-        </div>
+<div class="div-margin">
+    <h2 style="display:inline">Payments</h2>
+    <div style="float:right">
+        <form class="div-search">
+            <input type="search" class="input-search" name="SearchString" placeholder="Search..." />
+            <button class="btn btn-outline-secondary" style="outline:none" type="button"><span class="glyphicon glyphicon-search"></span></button>
+        </form>
+        <input style="width:100px;height:36px" type="button" value="Create New" onclick="location.href='@Url.Action("Create")'" />
     </div>
+</div>
 <table class="table">
     <tr>
         <th>

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using NSI_CRK.DAL;
 using NSI_CRK.Models;
@@ -13,23 +11,27 @@ namespace NSI_CRK.Controllers
 {
     public class EmployeesController : Controller
     {
-        private CRKContext db = new CRKContext();
+        private IGenericRepository<Employee> repository = null;
+        private IEmployeesRepository employees_repository = null;
+
+        public EmployeesController()
+        {
+            this.repository = new GenericRepository<Employee>();
+            this.employees_repository = new EmployeesRepository();
+        }
+        public EmployeesController(IGenericRepository<Employee> repository)
+        {
+            this.repository = repository;
+        }
+        public EmployeesController(EmployeesRepository repository)
+        {
+            this.employees_repository = repository;
+        }
 
         // GET: Employees
-        public ActionResult Index(string SearchName = null)
+        public ActionResult Index(string SearchString = null)
         {
-            var empoyee = db.Employees.AsQueryable();
-            if (!String.IsNullOrEmpty(SearchName))
-            {
-                var toUpper = SearchName.ToUpper();
-                empoyee = db.Employees.Where(s => s.FirstName.Contains(toUpper) ||
-                                             s.LastName.Contains(toUpper) ||
-                                             s.Email.Contains(toUpper) ||
-                                             s.City.Contains(toUpper) ||
-                                             s.Salary.ToString().Contains(toUpper) ||
-                                             s.Position.ToString().Contains(toUpper));
-            }
-            return View(empoyee.ToList());
+            return View(employees_repository.GetFilteredEmployees(SearchString).ToList());
         }
 
         // GET: Employees/Details/5
@@ -39,7 +41,7 @@ namespace NSI_CRK.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
+            Employee employee = repository.GetById(id);
             if (employee == null)
             {
                 return HttpNotFound();
@@ -62,8 +64,8 @@ namespace NSI_CRK.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Employees.Add(employee);
-                db.SaveChanges();
+                repository.Insert(employee);
+                repository.Save();
                 return RedirectToAction("Index");
             }
 
@@ -77,7 +79,7 @@ namespace NSI_CRK.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
+            Employee employee = repository.GetById(id);
             if (employee == null)
             {
                 return HttpNotFound();
@@ -94,8 +96,8 @@ namespace NSI_CRK.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(employee).State = EntityState.Modified;
-                db.SaveChanges();
+                repository.Update(employee);
+                repository.Save();
                 return RedirectToAction("Index");
             }
             return View(employee);
@@ -108,7 +110,7 @@ namespace NSI_CRK.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
+            Employee employee = repository.GetById(id);
             if (employee == null)
             {
                 return HttpNotFound();
@@ -121,18 +123,14 @@ namespace NSI_CRK.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Employee employee = db.Employees.Find(id);
-            db.Employees.Remove(employee);
-            db.SaveChanges();
+            repository.Delete(id);
+            repository.Save();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
+            repository.Dispose();
             base.Dispose(disposing);
         }
     }

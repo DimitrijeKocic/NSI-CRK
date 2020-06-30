@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using NSI_CRK.DAL;
 using NSI_CRK.Models;
@@ -13,12 +9,27 @@ namespace NSI_CRK.Controllers
 {
     public class PaymentsController : Controller
     {
-        private CRKContext db = new CRKContext();
+        private IGenericRepository<Payment> repository = null;
+        private IPaymentsRepository payments_repository = null;
+
+        public PaymentsController()
+        {
+            this.repository = new GenericRepository<Payment>();
+            this.payments_repository = new PaymentsRepository();
+        }
+        public PaymentsController(IGenericRepository<Payment> repository)
+        {
+            this.repository = repository;
+        }
+        public PaymentsController(PaymentsRepository repository)
+        {
+            this.payments_repository = repository;
+        }
 
         // GET: Payments
-        public ActionResult Index()
+        public ActionResult Index(string SearchString = null)
         {
-            return View(db.Payments.ToList());
+            return View(payments_repository.GetFilteredPayments(SearchString).ToList());
         }
 
         // GET: Payments/Details/5
@@ -28,7 +39,7 @@ namespace NSI_CRK.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Payment payment = db.Payments.Find(id);
+            Payment payment = repository.GetById(id);
             if (payment == null)
             {
                 return HttpNotFound();
@@ -51,8 +62,8 @@ namespace NSI_CRK.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Payments.Add(payment);
-                db.SaveChanges();
+                repository.Insert(payment);
+                repository.Save();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +77,7 @@ namespace NSI_CRK.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Payment payment = db.Payments.Find(id);
+            Payment payment = repository.GetById(id);
             if (payment == null)
             {
                 return HttpNotFound();
@@ -83,8 +94,8 @@ namespace NSI_CRK.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(payment).State = EntityState.Modified;
-                db.SaveChanges();
+                repository.Update(payment);
+                repository.Save();
                 return RedirectToAction("Index");
             }
             return View(payment);
@@ -97,7 +108,7 @@ namespace NSI_CRK.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Payment payment = db.Payments.Find(id);
+            Payment payment = repository.GetById(id);
             if (payment == null)
             {
                 return HttpNotFound();
@@ -110,18 +121,14 @@ namespace NSI_CRK.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Payment payment = db.Payments.Find(id);
-            db.Payments.Remove(payment);
-            db.SaveChanges();
+            repository.Delete(id);
+            repository.Save();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
+            repository.Dispose();
             base.Dispose(disposing);
         }
     }

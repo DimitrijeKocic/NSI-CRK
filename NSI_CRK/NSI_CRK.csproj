@@ -159,7 +159,15 @@
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
+    <Compile Include="DAL\AbsencesRepository.cs" />
     <Compile Include="DAL\CRKContext.cs" />
+    <Compile Include="DAL\EmployeesRepository.cs" />
+    <Compile Include="DAL\GenericRepository.cs" />
+    <Compile Include="DAL\IAbsencesRepository.cs" />
+    <Compile Include="DAL\IEmployeesRepository.cs" />
+    <Compile Include="DAL\IGenericRepository.cs" />
+    <Compile Include="DAL\IPaymentsRepository.cs" />
+    <Compile Include="DAL\PaymentsRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
