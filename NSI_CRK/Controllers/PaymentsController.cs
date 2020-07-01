@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using NSI_CRK.DAL;
@@ -9,37 +8,26 @@ namespace NSI_CRK.Controllers
 {
     public class PaymentsController : Controller
     {
-        private IGenericRepository<Payment> repository = null;
-        private IPaymentsRepository payments_repository = null;
+        private IUnitOfWork unitOfWork = new UnitOfWork();
 
-        public PaymentsController()
-        {
-            this.repository = new GenericRepository<Payment>();
-            this.payments_repository = new PaymentsRepository();
-        }
-        public PaymentsController(IGenericRepository<Payment> repository)
-        {
-            this.repository = repository;
-        }
-        public PaymentsController(PaymentsRepository repository)
-        {
-            this.payments_repository = repository;
-        }
+        //bice potreban za dependency injection
+        //public PaymentsController(IUnitOfWork unitOfWork)
+        //{
+        //    this.unitOfWork = unitOfWork;
+        //}
 
-        // GET: Payments
         public ActionResult Index(string SearchString = null)
         {
-            return View(payments_repository.GetFilteredPayments(SearchString).ToList());
+            return View(unitOfWork.PaymentsRepository.GetFilteredPayments(SearchString).ToList());
         }
 
-        // GET: Payments/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Payment payment = repository.GetById(id);
+            Payment payment = unitOfWork.PaymentsRepository.GetById(id);
             if (payment == null)
             {
                 return HttpNotFound();
@@ -47,13 +35,11 @@ namespace NSI_CRK.Controllers
             return View(payment);
         }
 
-        // GET: Payments/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Payments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -62,22 +48,21 @@ namespace NSI_CRK.Controllers
         {
             if (ModelState.IsValid)
             {
-                repository.Insert(payment);
-                repository.Save();
+                unitOfWork.PaymentsRepository.Insert(payment);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
             return View(payment);
         }
 
-        // GET: Payments/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Payment payment = repository.GetById(id);
+            Payment payment = unitOfWork.PaymentsRepository.GetById(id);
             if (payment == null)
             {
                 return HttpNotFound();
@@ -85,7 +70,6 @@ namespace NSI_CRK.Controllers
             return View(payment);
         }
 
-        // POST: Payments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -94,21 +78,20 @@ namespace NSI_CRK.Controllers
         {
             if (ModelState.IsValid)
             {
-                repository.Update(payment);
-                repository.Save();
+                unitOfWork.PaymentsRepository.Update(payment);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View(payment);
         }
 
-        // GET: Payments/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Payment payment = repository.GetById(id);
+            Payment payment = unitOfWork.PaymentsRepository.GetById(id);
             if (payment == null)
             {
                 return HttpNotFound();
@@ -116,19 +99,18 @@ namespace NSI_CRK.Controllers
             return View(payment);
         }
 
-        // POST: Payments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            repository.Delete(id);
-            repository.Save();
+            unitOfWork.PaymentsRepository.Delete(id);
+            unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            repository.Dispose();
+            unitOfWork.Dispose();
             base.Dispose(disposing);
         }
     }

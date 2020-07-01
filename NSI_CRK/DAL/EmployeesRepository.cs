@@ -7,6 +7,9 @@ namespace NSI_CRK.DAL
 {
     public class EmployeesRepository : GenericRepository<Employee>, IEmployeesRepository
     {
+        public EmployeesRepository(CRKContext context) : base(context)
+        { }
+
         public IEnumerable<Employee> GetFilteredEmployees(string SearchString = null)
         {
             var employees = crkContext.Employees.AsQueryable();

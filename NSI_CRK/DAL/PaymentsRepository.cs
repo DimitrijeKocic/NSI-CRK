@@ -7,6 +7,9 @@ namespace NSI_CRK.DAL
 {
     public class PaymentsRepository : GenericRepository<Payment>, IPaymentsRepository
     {
+        public PaymentsRepository(CRKContext context) : base(context)
+        { }
+
         public IEnumerable<Payment> GetFilteredPayments(string SearchString = null)
         {
             var payments = crkContext.Payments.AsQueryable();

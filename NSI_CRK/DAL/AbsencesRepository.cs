@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace NSI_CRK.DAL
 {
     public class AbsencesRepository : GenericRepository<Absence>, IAbsencesRepository
     {
+        public AbsencesRepository(CRKContext context) : base(context)
+        { }
+
         public IEnumerable<Absence> GetFilteredAbsences(string SearchString = null)
         {
             var absences = crkContext.Absences.AsQueryable();

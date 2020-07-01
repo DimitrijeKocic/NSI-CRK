@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -10,11 +9,6 @@ namespace NSI_CRK.DAL
         public CRKContext crkContext = null;
         public DbSet<Type> dbSet = null;
 
-        public GenericRepository()
-        {
-            this.crkContext = new CRKContext();
-            dbSet = crkContext.Set<Type>();
-        }
         public GenericRepository(CRKContext context)
         {
             this.crkContext = context;
@@ -46,31 +40,6 @@ namespace NSI_CRK.DAL
         {
             Type existing = dbSet.Find(id);
             dbSet.Remove(existing);
-        }
-
-        public void Save()
-        {
-            crkContext.SaveChanges();
-        }
-
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    crkContext.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }
