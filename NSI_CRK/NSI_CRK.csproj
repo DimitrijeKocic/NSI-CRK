@@ -159,23 +159,24 @@
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
-    <Compile Include="DAL\AbsencesRepository.cs" />
+    <Compile Include="DAL\Repositories\AbsencesRepository.cs" />
     <Compile Include="DAL\CRKContext.cs" />
-    <Compile Include="DAL\EmployeesRepository.cs" />
-    <Compile Include="DAL\GenericRepository.cs" />
-    <Compile Include="DAL\IAbsencesRepository.cs" />
-    <Compile Include="DAL\IEmployeesRepository.cs" />
-    <Compile Include="DAL\IGenericRepository.cs" />
-    <Compile Include="DAL\IPaymentsRepository.cs" />
+    <Compile Include="DAL\Repositories\EmployeesRepository.cs" />
+    <Compile Include="DAL\Repository.cs" />
+    <Compile Include="DAL\Repositories\IAbsencesRepository.cs" />
+    <Compile Include="DAL\Repositories\IEmployeesRepository.cs" />
+    <Compile Include="DAL\IRepository.cs" />
+    <Compile Include="DAL\Repositories\IPaymentsRepository.cs" />
     <Compile Include="DAL\IUnitOfWork.cs" />
-    <Compile Include="DAL\PaymentsRepository.cs" />
+    <Compile Include="DAL\Repositories\PaymentsRepository.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202001261405499_CreateTables.cs" />
-    <Compile Include="Migrations\202001261405499_CreateTables.designer.cs">
-      <DependentUpon>202001261405499_CreateTables.cs</DependentUpon>
+    <Compile Include="Helper\EnumHelper.cs" />
+    <Compile Include="Migrations\202007030047199_CreateAndSeed.cs" />
+    <Compile Include="Migrations\202007030047199_CreateAndSeed.designer.cs">
+      <DependentUpon>202007030047199_CreateAndSeed.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absence.cs" />
@@ -257,8 +258,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202001261405499_CreateTables.resx">
-      <DependentUpon>202001261405499_CreateTables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007030047199_CreateAndSeed.resx">
+      <DependentUpon>202007030047199_CreateAndSeed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

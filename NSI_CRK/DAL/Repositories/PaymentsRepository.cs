@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace NSI_CRK.DAL
 {
-    public class PaymentsRepository : GenericRepository<Payment>, IPaymentsRepository
+    public class PaymentsRepository : Repository<Payment>, IPaymentsRepository
     {
         public PaymentsRepository(CRKContext context) : base(context)
         { }

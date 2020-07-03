@@ -8,8 +8,10 @@ namespace NSI_CRK.Models
         public int ID { get; set; }
 
         public string Name { get; set; }
-        [StringLength(3)]
+
+        [StringLength(3), DataType(DataType.Currency)]
         public string Currency { get; set; }
+
         public int NumberOfEmployees { get; set; }
 
         public virtual ICollection<Employee> Employees { get; set; }

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<NSI_CRK.Models.Absence>
+﻿@using NSI_CRK.Models
+@model IEnumerable<NSI_CRK.Models.Absence>
 
 @{
     ViewBag.Title = "Index";
@@ -12,10 +13,13 @@
             <button class="btn btn-outline-secondary" type="submit" style="outline:none"><span class="glyphicon glyphicon-search"></span></button>
         </form>
         <input style="width:100px;height:36px" type="button" value="Create New" onclick="location.href='@Url.Action("Create")'" />
-    </div>    
+    </div>
 </div>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee.Name)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Type)
         </th>
@@ -31,26 +35,31 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BeginDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumberOfDays)
-        </td>
-        <td style="text-align:end">
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        var absenceType = EnumHelper<AbsenceType>.GetDisplayValue(item.Type);
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => absenceType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BeginDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfDays)
+            </td>
+            <td style="text-align:end">
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>

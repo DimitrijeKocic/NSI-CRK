@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace NSI_CRK.DAL
 {
-    public class AbsencesRepository : GenericRepository<Absence>, IAbsencesRepository
+    public class AbsencesRepository : Repository<Absence>, IAbsencesRepository
     {
         public AbsencesRepository(CRKContext context) : base(context)
         { }

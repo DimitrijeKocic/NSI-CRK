@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace NSI_CRK.DAL
 {
-    public class EmployeesRepository : GenericRepository<Employee>, IEmployeesRepository
+    public class EmployeesRepository : Repository<Employee>, IEmployeesRepository
     {
         public EmployeesRepository(CRKContext context) : base(context)
         { }

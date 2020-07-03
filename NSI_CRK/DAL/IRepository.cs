@@ -2,7 +2,7 @@
 
 namespace NSI_CRK.DAL
 {
-    public interface IGenericRepository<Type>
+    public interface IRepository<Type>
     {
         IEnumerable<Type> GetAll();
         Type GetById(int? id);

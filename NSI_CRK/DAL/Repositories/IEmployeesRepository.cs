@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NSI_CRK.DAL
 {
-    public interface IEmployeesRepository : IGenericRepository<Employee>
+    public interface IEmployeesRepository : IRepository<Employee>
     {
         IEnumerable<Employee> GetFilteredEmployees(string SearchString = null);
     }

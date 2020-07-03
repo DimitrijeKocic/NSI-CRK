@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NSI_CRK.DAL
 {
-    public interface IAbsencesRepository : IGenericRepository<Absence>
+    public interface IAbsencesRepository : IRepository<Absence>
     {
         IEnumerable<Absence> GetFilteredAbsences(string SearchString = null);
     }

@@ -7,13 +7,13 @@ namespace NSI_CRK.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class CreateTables : IMigrationMetadata
+    public sealed partial class CreateAndSeed : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateTables));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateAndSeed));
         
         string IMigrationMetadata.Id
         {
-            get { return "202001261405499_CreateTables"; }
+            get { return "202007030047199_CreateAndSeed"; }
         }
         
         string IMigrationMetadata.Source

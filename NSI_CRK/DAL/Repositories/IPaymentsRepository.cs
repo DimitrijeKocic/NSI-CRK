@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NSI_CRK.DAL
 {
-    public interface IPaymentsRepository : IGenericRepository<Payment>
+    public interface IPaymentsRepository : IRepository<Payment>
     {
         IEnumerable<Payment> GetFilteredPayments(string SearchString = null);
     }

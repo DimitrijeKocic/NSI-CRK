@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace NSI_CRK.DAL
 {
-    public class GenericRepository<Type> : IGenericRepository<Type> where Type : class
+    public class Repository<Type> : IRepository<Type> where Type : class
     {
         public CRKContext crkContext = null;
         public DbSet<Type> dbSet = null;
 
-        public GenericRepository(CRKContext context)
+        public Repository(CRKContext context)
         {
             this.crkContext = context;
             dbSet = context.Set<Type>();
