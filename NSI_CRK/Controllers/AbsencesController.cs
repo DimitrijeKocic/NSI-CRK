@@ -40,11 +40,14 @@ namespace NSI_CRK.Controllers
             return View();
         }
 
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        public PartialViewResult RenderEmployees()
+        {
+            return PartialView("RenderEmployees", unitOfWork.EmployeesRepository.GetAll());
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Type,BeginDate,EndDate,NumberOfDays")] Absence absence)
+        public ActionResult Create([Bind(Include = "ID,EmployeeID,Type,BeginDate,EndDate,NumberOfDays")] Absence absence)
         {
             if (ModelState.IsValid)
             {
@@ -70,11 +73,9 @@ namespace NSI_CRK.Controllers
             return View(absence);
         }
 
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Type,BeginDate,EndDate,NumberOfDays")] Absence absence)
+        public ActionResult Edit([Bind(Include = "ID,EmployeeID,Type,BeginDate,EndDate,NumberOfDays")] Absence absence)
         {
             if (ModelState.IsValid)
             {

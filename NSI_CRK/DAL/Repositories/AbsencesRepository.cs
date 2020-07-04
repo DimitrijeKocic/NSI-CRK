@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 
 namespace NSI_CRK.DAL
 {
@@ -16,7 +17,8 @@ namespace NSI_CRK.DAL
             if (!String.IsNullOrEmpty(SearchString))
             {
                 var toUpper = SearchString.ToUpper();
-                absences = crkContext.Absences.Where(s => s.Type.ToString().Contains(toUpper));
+                absences = crkContext.Absences.Where(a => (a.Employee.FirstName.ToString() + " " + a.Employee.LastName.ToString()).Contains(toUpper) ||
+                                                    a.Type.ToString().Contains(toUpper));
             }
             return absences;
         }

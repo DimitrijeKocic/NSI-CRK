@@ -1,0 +1,15 @@
+﻿@model IEnumerable<NSI_CRK.Models.Employee>
+
+
+<div class="form-group">
+    <label class="control-label col-md-2" for="Employee">Employee</label>
+    <div class="col-md-10">
+        @Html.DropDownList("EmployeeID", Model.Select(item => new SelectListItem
+        {
+             Value = item.ID.ToString(),
+             Text = item.Name.ToString(),
+             Selected = "select" == item.ID.ToString()
+        }),
+        new { @class = "form-control" })
+    </div>
+</div>

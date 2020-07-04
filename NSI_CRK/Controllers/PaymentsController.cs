@@ -40,11 +40,14 @@ namespace NSI_CRK.Controllers
             return View();
         }
 
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        public PartialViewResult RenderEmployees()
+        {
+            return PartialView("RenderEmployees", unitOfWork.EmployeesRepository.GetAll());
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Amount,Type,Month,Date")] Payment payment)
+        public ActionResult Create([Bind(Include = "ID,EmployeeID,Amount,Type,Month,Date")] Payment payment)
         {
             if (ModelState.IsValid)
             {
@@ -70,11 +73,9 @@ namespace NSI_CRK.Controllers
             return View(payment);
         }
 
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Amount,Type,Month,Date")] Payment payment)
+        public ActionResult Edit([Bind(Include = "ID,EmployeeID,Amount,Type,Month,Date")] Payment payment)
         {
             if (ModelState.IsValid)
             {

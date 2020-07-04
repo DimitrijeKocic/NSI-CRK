@@ -16,12 +16,12 @@ namespace NSI_CRK.DAL
             if (!String.IsNullOrEmpty(SearchString))
             {
                 var toUpper = SearchString.ToUpper();
-                employees = crkContext.Employees.Where(s => s.FirstName.Contains(toUpper) ||
-                                             s.LastName.Contains(toUpper) ||
-                                             s.Email.Contains(toUpper) ||
-                                             s.City.Contains(toUpper) ||
-                                             s.Salary.ToString().Contains(toUpper) ||
-                                             s.Position.ToString().Contains(toUpper));
+                employees = crkContext.Employees.Where(e => e.FirstName.Contains(toUpper) ||
+                                             e.LastName.Contains(toUpper) ||
+                                             e.Email.Contains(toUpper) ||
+                                             e.City.Contains(toUpper) ||
+                                             e.Salary.ToString().Contains(toUpper) ||
+                                             e.Position.ToString().Contains(toUpper));
             }
             return employees;
         }

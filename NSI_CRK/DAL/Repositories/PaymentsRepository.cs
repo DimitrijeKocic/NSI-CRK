@@ -16,9 +16,9 @@ namespace NSI_CRK.DAL
             if (!String.IsNullOrEmpty(SearchString))
             {
                 var toUpper = SearchString.ToUpper();
-                payments = crkContext.Payments.Where(s => s.Amount.ToString().Contains(toUpper) ||
-                                             s.Type.ToString().Contains(toUpper) ||
-                                             s.Month.ToString().Contains(toUpper));
+                payments = crkContext.Payments.Where(p => (p.Employee.FirstName.ToString() + " " + p.Employee.LastName.ToString()).Contains(toUpper) ||
+                                                    p.Type.ToString().Contains(toUpper) ||
+                                                    p.Month.ToString().Contains(toUpper));
             }
             return payments;
         }
