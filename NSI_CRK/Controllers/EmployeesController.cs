@@ -40,6 +40,16 @@ namespace NSI_CRK.Controllers
             return View();
         }
 
+        public PartialViewResult RenderEmployeePaymentsTable(string name)
+        {
+            return PartialView("RenderEmployeePaymentsTable", unitOfWork.PaymentsRepository.GetFilteredPayments(name));
+        }
+
+        public PartialViewResult RenderEmployeeAbsencesTable(string name)
+        {
+            return PartialView("RenderEmployeeAbsencesTable", unitOfWork.AbsencesRepository.GetFilteredAbsences(name));
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,CompanyID,FirstName,LastName,Email,City,Address,TelephoneNumber,DateOfBirth,DateOfEmployment,DateOfContractExpiration,Position,Salary")] Employee employee)

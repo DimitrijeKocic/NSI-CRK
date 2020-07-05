@@ -99,7 +99,6 @@
         </dd>
 
         <dd>
-            <input style="margin-top:20px" type="submit" value="Delete" class="btn btn-default" /> 
         </dd>
 
     </dl>
@@ -108,8 +107,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-  
             @Html.ActionLink("Back to List", "Index")
+            <input style="margin-left:20px" type="submit" value="Delete" class="btn btn-default" /> 
         </div>
     }
 </div>

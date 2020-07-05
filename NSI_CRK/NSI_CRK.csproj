@@ -240,7 +240,9 @@
     <Content Include="Views\Absences\Details.cshtml" />
     <Content Include="Views\Absences\Edit.cshtml" />
     <Content Include="Views\Absences\Index.cshtml" />
-    <Content Include="Views\Shared\RenderEmployees.cshtml" />
+    <Content Include="Views\Shared\RenderEmployeesDropdown.cshtml" />
+    <Content Include="Views\Shared\RenderEmployeePaymentsTable.cshtml" />
+    <Content Include="Views\Shared\RenderEmployeeAbsencesTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

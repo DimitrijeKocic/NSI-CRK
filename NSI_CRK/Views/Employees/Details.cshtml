@@ -103,3 +103,21 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<div class="col-md-6">
+
+    <h4>Employee Payments</h4>
+
+    @{
+        Html.RenderAction("RenderEmployeePaymentsTable", new { name = Model.Name });
+    }
+</div>
+
+<div class="col-md-6">
+
+    <h4>Employee Absences</h4>
+
+    @{
+        Html.RenderAction("RenderEmployeeAbsencesTable", new { name = Model.Name });
+    }
+</div>

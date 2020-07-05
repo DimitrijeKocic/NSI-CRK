@@ -1,0 +1,39 @@
+﻿@using NSI_CRK.Models
+@model IEnumerable<NSI_CRK.Models.Payment>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Month)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            var paymentType = EnumHelper<PaymentType>.GetDisplayValue(item.Type);
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => paymentType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Month)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+            </tr>
+        }
+
+    </table>

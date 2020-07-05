@@ -16,8 +16,7 @@ namespace NSI_CRK.DAL
             if (!String.IsNullOrEmpty(SearchString))
             {
                 var toUpper = SearchString.ToUpper();
-                employees = crkContext.Employees.Where(e => e.FirstName.Contains(toUpper) ||
-                                             e.LastName.Contains(toUpper) ||
+                employees = crkContext.Employees.Where(e => (e.FirstName.ToString() + " " + e.LastName.ToString()).Contains(toUpper) ||
                                              e.Email.Contains(toUpper) ||
                                              e.City.Contains(toUpper) ||
                                              e.Salary.ToString().Contains(toUpper) ||

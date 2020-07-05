@@ -1,0 +1,39 @@
+﻿@using NSI_CRK.Models
+@model IEnumerable<NSI_CRK.Models.Absence>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BeginDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfDays)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        var absenceType = EnumHelper<AbsenceType>.GetDisplayValue(item.Type);
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => absenceType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BeginDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfDays)
+            </td>
+        </tr>
+    }
+
+</table>

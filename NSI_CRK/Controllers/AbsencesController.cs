@@ -40,9 +40,9 @@ namespace NSI_CRK.Controllers
             return View();
         }
 
-        public PartialViewResult RenderEmployees()
+        public PartialViewResult RenderEmployeesDropdown()
         {
-            return PartialView("RenderEmployees", unitOfWork.EmployeesRepository.GetAll());
+            return PartialView("RenderEmployeesDropdown", unitOfWork.EmployeesRepository.GetAll());
         }
 
         [HttpPost]
