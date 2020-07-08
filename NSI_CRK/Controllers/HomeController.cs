@@ -23,7 +23,7 @@ namespace NSI_CRK.Controllers
             {
                 unitOfWork.PaymentsRepository.GenerateSalaries(month);
                 unitOfWork.Save();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Payments");
             }
 
             return View();
