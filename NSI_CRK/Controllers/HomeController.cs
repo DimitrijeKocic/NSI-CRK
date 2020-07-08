@@ -1,22 +1,36 @@
-﻿using System.Web.Mvc;
+﻿using NSI_CRK.DAL;
+using NSI_CRK.Models;
+using System.Web.Mvc;
 
 namespace NSI_CRK.Controllers
 {
     public class HomeController : Controller
     {
+        private IUnitOfWork unitOfWork = new UnitOfWork();
+
         public ActionResult Index()
         {
+            ViewBag.NumberOfEmployees = unitOfWork.EmployeesRepository.GetNumberOfEmployees();
+            ViewBag.SalarySum = unitOfWork.EmployeesRepository.GetSalarySum();
             return View();
         }
-        public ActionResult Employees()
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GenerateSalaries(Months month)
         {
+            if (ModelState.IsValid)
+            {
+                unitOfWork.PaymentsRepository.GenerateSalaries(month);
+                unitOfWork.Save();
+                return RedirectToAction("Index");
+            }
+
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
     }

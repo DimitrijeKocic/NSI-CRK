@@ -1,7 +1,9 @@
-﻿@model NSI_CRK.Models.Payment
+﻿@using NSI_CRK.Models
+@model NSI_CRK.Models.Payment
 
 @{
     ViewBag.Title = "Details";
+    var paymentType = EnumHelper<PaymentType>.GetDisplayValue(Model.Type);
 }
 
 <h2>Payment Details</h2>
@@ -30,7 +32,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Type)
+            @Html.DisplayFor(model => paymentType)
         </dd>
 
         <dt>

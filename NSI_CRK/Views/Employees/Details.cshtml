@@ -1,7 +1,9 @@
-﻿@model NSI_CRK.Models.Employee
+﻿@using NSI_CRK.Models
+@model NSI_CRK.Models.Employee
 
 @{
     ViewBag.Title = "Details";
+    var position = EnumHelper<PositionType>.GetDisplayValue(Model.Position);
 }
 
 <h2>Employee Details</h2>
@@ -86,7 +88,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Position)
+            @Html.DisplayFor(model => position)
         </dd>
 
         <dt>

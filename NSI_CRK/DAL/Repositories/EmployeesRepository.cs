@@ -24,5 +24,15 @@ namespace NSI_CRK.DAL
             }
             return employees;
         }
+
+        public int GetNumberOfEmployees()
+        {
+            return crkContext.Employees.Count();
+        }
+
+        public double GetSalarySum()
+        {
+            return crkContext.Employees.AsEnumerable().Sum(e => e.Salary);
+        }
     }
 }

@@ -1,19 +1,20 @@
 ﻿namespace NSI_CRK.Migrations
 {
     using NSI_CRK.Models;
+    using NSI_CRK.DAL;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<NSI_CRK.DAL.CRKContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<CRKContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(NSI_CRK.DAL.CRKContext context)
+        protected override void Seed(CRKContext context)
         {
             var company = new Company { Name = "SkyNet", Currency = "EUR", NumberOfEmployees = 7 };
             context.Companies.AddOrUpdate(c => c.Name, company);

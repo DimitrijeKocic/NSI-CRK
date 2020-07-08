@@ -1,7 +1,9 @@
-﻿@model NSI_CRK.Models.Payment
+﻿@using NSI_CRK.Models
+@model NSI_CRK.Models.Payment
 
 @{
     ViewBag.Title = "Delete";
+    var paymentType = EnumHelper<PaymentType>.GetDisplayValue(Model.Type);
 }
 
 <h2>Delete Payment</h2>
@@ -31,7 +33,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Type)
+            @Html.DisplayFor(model => paymentType)
         </dd>
 
         <dt>
@@ -52,7 +54,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

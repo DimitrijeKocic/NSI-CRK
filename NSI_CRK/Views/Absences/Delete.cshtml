@@ -1,7 +1,9 @@
-﻿@model NSI_CRK.Models.Absence
+﻿@using NSI_CRK.Models
+@model NSI_CRK.Models.Absence
 
 @{
     ViewBag.Title = "Delete";
+    var absenceType = EnumHelper<AbsenceType>.GetDisplayValue(Model.Type);
 }
 
 <h2>Delete Absence</h2>
@@ -23,7 +25,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Type)
+            @Html.DisplayFor(model => absenceType)
         </dd>
 
         <dt>
@@ -52,7 +54,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

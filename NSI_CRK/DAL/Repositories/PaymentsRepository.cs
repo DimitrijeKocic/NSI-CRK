@@ -22,5 +22,22 @@ namespace NSI_CRK.DAL
             }
             return payments;
         }
+
+        public void GenerateSalaries(Months month)
+        {
+            var employees = crkContext.Employees;
+            foreach (Employee employee in employees)
+            {
+                var payment = new Payment()
+                {
+                    EmployeeID = employee.ID,
+                    Type = PaymentType.FixSalary,
+                    Amount = employee.Salary,
+                    Month = month,
+                    Date = DateTime.Now
+                };
+                crkContext.Payments.Add(payment);
+            }
+        }
     }
 }

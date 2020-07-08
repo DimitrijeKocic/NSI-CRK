@@ -10,12 +10,6 @@ namespace NSI_CRK.Controllers
     {
         private IUnitOfWork unitOfWork = new UnitOfWork();
 
-        //bice potreban za dependency injection
-        //public EmployeesController(IUnitOfWork unitOfWork)
-        //{
-        //    this.unitOfWork = unitOfWork;
-        //}
-
         public ActionResult Index(string SearchString = null)
         {
             return View(unitOfWork.EmployeesRepository.GetFilteredEmployees(SearchString).ToList());

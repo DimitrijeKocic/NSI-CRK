@@ -6,5 +6,7 @@ namespace NSI_CRK.DAL
     public interface IEmployeesRepository : IRepository<Employee>
     {
         IEnumerable<Employee> GetFilteredEmployees(string SearchString = null);
+        int GetNumberOfEmployees();
+        double GetSalarySum();
     }
 }
